@@ -27,19 +27,22 @@ GAME_NAME=${APP_PATH##*/}
 if [ "$OS" = "$MAC" ]; then
     EXE_PATH=$APP_PATH/bin/Debug/${GAME_NAME}.app/Contents/MacOS/${GAME_NAME}
 elif [ "$OS" = "$LIN" ]; then
-    EXE_PATH=$APP_PATH/bin/Debug/${GAME_NAME}
+    EXE_PATH=$APP_PATH/bin/Debug/${GAME_NAME}.exe
 else #Windows
     EXE_PATH=$APP_PATH/bin/Debug/${GAME_NAME}.exe
 fi
+
+VERSION="Debug Version from /bin/Debug"
 
 if [ ! -f "${EXE_PATH}" ]; then
     if [ "$OS" = "$MAC" ]; then
         EXE_PATH=$APP_PATH/bin/Release/${GAME_NAME}.app/Contents/MacOS/${GAME_NAME}
     elif [ "$OS" = "$LIN" ]; then
-        EXE_PATH=$APP_PATH/bin/Release/${GAME_NAME}
+        EXE_PATH=$APP_PATH/bin/Release/${GAME_NAME}.exe
     else #Windows
         EXE_PATH=$APP_PATH/bin/Release/${GAME_NAME}.exe
     fi
+    VERSION="Release Version from /bin/Release"
 fi
 
 if [ ! -f "${EXE_PATH}" ]; then
@@ -47,4 +50,13 @@ if [ ! -f "${EXE_PATH}" ]; then
     exit -1
 fi
 
-"$EXE_PATH"
+echo "Running ${VERSION}"
+
+if [ "$OS" = "$MAC" ]; then
+    "${EXE_PATH}"
+elif [ "$OS" = "$LIN" ]; then
+    mono "$EXE_PATH"
+else #Windows
+    "${EXE_PATH}"
+fi
+

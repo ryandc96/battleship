@@ -14,10 +14,6 @@ echo "--------------------------------------------------"
 echo "          Cleaning Up $GAME_NAME"
 echo "--------------------------------------------------"
 
-rm -rf "${APP_PATH}/tmp"
-mkdir "${APP_PATH}/tmp"
-echo " * Cleaned tmp folder"
-
 rm -rf "${APP_PATH}/bin"
 mkdir "${APP_PATH}/bin"
 echo " * Cleaned bin folder"
