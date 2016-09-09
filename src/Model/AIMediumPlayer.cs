@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// The AIMediumPlayer is a type of AIPlayer where it will try and destroy a ship
@@ -48,7 +49,7 @@ public class AIMediumPlayer : AIPlayer
 				default:
 					throw new ApplicationException("AI has gone in an imvalid state");
 			}
-		} while (row < 0 || column < 0 || row >= EnemyGrid.Height || column >= EnemyGrid.Width || EnemyGrid.get_Item(row, column) != TileView.Sea); //while inside the grid and not a sea tile do the search
+		} while (row < 0 || column < 0 || row >= EnemyGrid.Height || column >= EnemyGrid.Width || EnemyGrid[row, column] != TileView.Sea); //while inside the grid and not a sea tile do the search
 	}
 
 	/// <summary>
@@ -112,7 +113,7 @@ public class AIMediumPlayer : AIPlayer
 	/// <param name="column">the column of the targets location</param>
 	private void AddTarget(int row, int column)
 	{
-		if (row >= 0 && column >= 0 && row < EnemyGrid.Height && column < EnemyGrid.Width && EnemyGrid.get_Item(row, column) == TileView.Sea)
+		if (row >= 0 && column >= 0 && row < EnemyGrid.Height && column < EnemyGrid.Width && EnemyGrid[row, column] == TileView.Sea)
 		{
 
 			_Targets.Push(new Location(row, column));

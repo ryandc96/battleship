@@ -1,4 +1,5 @@
 ﻿using System;
+using SwinGameSDK;
 
 /// <summary>
 /// The AIPlayer is a type of player. It can readomly deploy ships, it also has the
@@ -68,7 +69,7 @@ public abstract class AIPlayer : Player
 		/// <returns>true if location 1 and location 2 are at the same spot</returns>
 		public static bool operator == (Location @this, Location other)
 		{
-			return @this != null && other != null && @this.Row == other.Row && @this.Column == other.Column;
+            return !ReferenceEquals(@this, null) && !ReferenceEquals(other, null) && @this.Row == other.Row && @this.Column == other.Column;
 		}
 
 		/// <summary>
@@ -79,7 +80,7 @@ public abstract class AIPlayer : Player
 		/// <returns>true if location 1 and location 2 are not at the same spot</returns>
 		public static bool operator != (Location @this, Location other)
 		{
-			return @this == null || other == null || @this.Row != other.Row || @this.Column != other.Column;
+            return ReferenceEquals(@this, null) || ReferenceEquals(other, null) || @this.Row != other.Row || @this.Column != other.Column;
 		}
 	}
 
@@ -121,7 +122,7 @@ public abstract class AIPlayer : Player
 			GenerateCoords(ref row, ref column); //generate coordinates for shot
 			result = _game.Shoot(row, column); //take shot
 			ProcessShot(row, column, result);
-		} while (result.Value != ResultOfAttack.Miss && result.Value != ResultOfAttack.GameOver && !SwinGame.WindowCloseRequested);
+		} while (result.Value != ResultOfAttack.Miss && result.Value != ResultOfAttack.GameOver && (SwinGame.WindowCloseRequested() == false));
 
 		return result;
 	}
@@ -135,7 +136,7 @@ public abstract class AIPlayer : Player
 for (i = 0; i <= 150; i++)
 {
 			//Dont delay if window is closed
-			if (SwinGame.WindowCloseRequested)
+			if (SwinGame.WindowCloseRequested())
 			{
 				return;
 			}

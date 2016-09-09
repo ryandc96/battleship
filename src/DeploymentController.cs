@@ -41,23 +41,23 @@ internal static class DeploymentController
 	/// </remarks>
 	public static void HandleDeploymentInput()
 	{
-		if (SwinGame.KeyTyped(KeyCode.VK_ESCAPE))
+		if (SwinGame.KeyTyped(KeyCode.vk_ESCAPE))
 		{
 			GameController.AddNewState(GameState.ViewingGameMenu);
 		}
 
-		if ((SwinGame.KeyTyped(KeyCode.VK_UP) | SwinGame.KeyTyped(KeyCode.VK_DOWN)) != 0)
+		if ((SwinGame.KeyTyped(KeyCode.vk_UP) | SwinGame.KeyTyped(KeyCode.vk_DOWN)) )
 		{
 			_currentDirection = Direction.UpDown;
 		}
-		if ((SwinGame.KeyTyped(KeyCode.VK_LEFT) | SwinGame.KeyTyped(KeyCode.VK_RIGHT)) != 0)
+		if ((SwinGame.KeyTyped(KeyCode.vk_LEFT) | SwinGame.KeyTyped(KeyCode.vk_RIGHT)) )
 		{
 			_currentDirection = Direction.LeftRight;
 		}
 
-		if (SwinGame.KeyTyped(KeyCode.VK_R))
+		if (SwinGame.KeyTyped(KeyCode.vk_r))
 		{
-			GameController.GameController.HumanPlayer.RandomizeDeployment();
+			GameController.HumanPlayer.RandomizeDeployment();
 		}
 
 		if (SwinGame.MouseClicked(MouseButton.LeftButton))
@@ -72,7 +72,7 @@ internal static class DeploymentController
 				DoDeployClick();
 			}
 
-			if ((GameController.GameController.HumanPlayer.ReadyToDeploy & UtilityFunctions.IsMouseInRectangle(PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP, PLAY_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT)) != 0)
+			if ((GameController.HumanPlayer.ReadyToDeploy & UtilityFunctions.IsMouseInRectangle(PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP, PLAY_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT)) )
 			{
 				GameController.EndDeployment();
 			}
@@ -86,7 +86,7 @@ internal static class DeploymentController
 			}
 			else if (UtilityFunctions.IsMouseInRectangle(RANDOM_BUTTON_LEFT, TOP_BUTTONS_TOP, RANDOM_BUTTON_WIDTH, TOP_BUTTONS_HEIGHT))
 			{
-				GameController.GameController.HumanPlayer.RandomizeDeployment();
+				GameController.HumanPlayer.RandomizeDeployment();
 			}
 		}
 	}
@@ -110,14 +110,14 @@ internal static class DeploymentController
 		row = Convert.ToInt32(Math.Floor((mouse.Y) / (UtilityFunctions.CELL_HEIGHT + UtilityFunctions.CELL_GAP)));
 		col = Convert.ToInt32(Math.Floor((mouse.X - UtilityFunctions.FIELD_LEFT) / (UtilityFunctions.CELL_WIDTH + UtilityFunctions.CELL_GAP)));
 
-		if (row >= 0 && row < GameController.GameController.HumanPlayer.PlayerGrid.Height)
+		if (row >= 0 && row < GameController.HumanPlayer.PlayerGrid.Height)
 		{
-			if (col >= 0 && col < GameController.GameController.HumanPlayer.PlayerGrid.Width)
+			if (col >= 0 && col < GameController.HumanPlayer.PlayerGrid.Width)
 			{
 				//if in the area try to deploy
 				try
 				{
-					GameController.GameController.HumanPlayer.PlayerGrid.MoveShip(row, col, _selectedShip, _currentDirection);
+					GameController.HumanPlayer.PlayerGrid.MoveShip(row, col, _selectedShip, _currentDirection);
 				}
 				catch (Exception ex)
 				{
@@ -134,7 +134,7 @@ internal static class DeploymentController
 	/// </summary>
 	public static void DrawDeployment()
 	{
-		UtilityFunctions.DrawField(GameController.GameController.HumanPlayer.PlayerGrid, GameController.GameController.HumanPlayer, true);
+		UtilityFunctions.DrawField(GameController.HumanPlayer.PlayerGrid, GameController.HumanPlayer, true);
 
 		//Draw the Left/Right and Up/Down buttons
 		if (_currentDirection == Direction.LeftRight)
@@ -170,7 +170,7 @@ internal static class DeploymentController
 			}
 		}
 
-		if (GameController.GameController.HumanPlayer.ReadyToDeploy)
+		if (GameController.HumanPlayer.ReadyToDeploy)
 		{
 			SwinGame.DrawBitmap(GameResources.GameImage("PlayButton"), PLAY_BUTTON_LEFT, TOP_BUTTONS_TOP);
 			//SwinGame.FillRectangle(Color.LightBlue, PLAY_BUTTON_LEFT, PLAY_BUTTON_TOP, PLAY_BUTTON_WIDTH, PLAY_BUTTON_HEIGHT)

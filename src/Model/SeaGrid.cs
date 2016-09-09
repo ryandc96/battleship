@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 /// <summary>
 /// The SeaGrid is the grid upon which the ships are deployed.
@@ -13,7 +14,7 @@ public class SeaGrid : ISeaGrid
 	private const int _WIDTH = 10;
 	private const int _HEIGHT = 10;
 
-	private Tile[,] _GameTiles = new Tile[Width, Height];
+	private Tile[,] _GameTiles = new Tile[_WIDTH, _HEIGHT];
 	private Dictionary<ShipName, Ship> _Ships;
 	private int _ShipsKilled = 0;
 
@@ -67,9 +68,10 @@ public class SeaGrid : ISeaGrid
 	/// <returns></returns>
 //INSTANT C# NOTE: C# does not support parameterized properties - the following property has been rewritten as a function:
 //ORIGINAL LINE: Public ReadOnly Property Item(ByVal x As Integer, ByVal y As Integer) As TileView Implements ISeaGrid.Item
-	public TileView get_Item(int x, int y)
-	{
+	public TileView this[int x, int y]
+	{get{
 		return _GameTiles[x, y].View;
+        }
 	}
 
 	/// <summary>
@@ -118,7 +120,7 @@ for (i = 0; i < Width; i++)
 	/// <param name="direction">the direction the ship is going</param>
 	public void MoveShip(int row, int col, ShipName ship, Direction direction)
 	{
-		Ship newShip = _Ships(ship);
+		Ship newShip = _Ships[ship];
 		newShip.Remove();
 		AddShip(row, col, direction, newShip);
 	}

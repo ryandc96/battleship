@@ -39,9 +39,10 @@ public class SeaGridAdapter : ISeaGrid
 	/// <returns>a tile, either what it actually is, or if it was a ship then return a sea tile</returns>
 //INSTANT C# NOTE: C# does not support parameterized properties - the following property has been rewritten as a function:
 //ORIGINAL LINE: Public ReadOnly Property Item(ByVal x As Integer, ByVal y As Integer) As TileView Implements ISeaGrid.Item
-	public TileView get_Item(int x, int y)
+	public TileView this[int x, int y]
 	{
-		TileView result = _MyGrid.get_Item(x, y);
+        get{
+		TileView result = _MyGrid[x, y];
 
 		if (result == TileView.Ship)
 		{
@@ -51,6 +52,7 @@ public class SeaGridAdapter : ISeaGrid
 		{
 			return result;
 		}
+        }
 	}
 
 	/// <summary>

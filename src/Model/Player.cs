@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections;
 
 /// <summary>
 /// Player has its own _PlayerGrid, and can see an _EnemyGrid, it can also check if
 /// all ships are deployed and if all ships are detroyed. A Player can also attach.
 /// </summary>
-public class Player : IEnumerable<Ship>
+public class Player : IEnumerable
 {
 	private bool InstanceFieldsInitialized = false;
 
@@ -137,8 +139,18 @@ public class Player : IEnumerable<Ship>
 			return null;
 		}
 
-		return _Ships.Item(name);
+		return _Ships[name];
 	}
+	public Ship Ship(ShipName name)
+	{
+		if (name == ShipName.None)
+		{
+			return null;
+		}
+
+		return _Ships[name];
+	}
+
 
 	/// <summary>
 	/// The number of shots the player has made
@@ -194,11 +206,11 @@ public class Player : IEnumerable<Ship>
 	/// has.
 	/// </summary>
 	/// <returns>A Ship enumerator</returns>
-	IEnumerator<Ship> IEnumerable<Ship>.GetEnumerator()
+	IEnumerator IEnumerable.GetEnumerator()
 	{
 		return this.GetShipEnumerator();
 	}
-	public IEnumerator<Ship> GetShipEnumerator()
+	public IEnumerator GetShipEnumerator()
 	{
 		Ship[] result = new Ship[_Ships.Values.Count + 1];
 		_Ships.Values.CopyTo(result, 0);

@@ -1,4 +1,6 @@
 ﻿using System;
+using SwinGameSDK;
+using System.Collections.Generic;
 
 /// <summary>
 /// This includes a number of utility methods for
@@ -47,7 +49,7 @@ internal static class UtilityFunctions
 	/// <returns>true if the mouse is in the area checked</returns>
 	public static bool IsMouseInRectangle(int x, int y, int w, int h)
 	{
-		Point2D mouse = null;
+		Point2D mouse = new Point2D();
 		bool result = false;
 
 		mouse = SwinGame.MousePosition();
@@ -131,13 +133,14 @@ internal static class UtilityFunctions
 //INSTANT C# NOTE: The following VB 'Select Case' included either a non-ordinal switch expression or non-ordinal, range-type, or non-constant 'Case' expressions and was converted to C# 'if-else' logic:
 //				Select Case grid.Item(row, col)
 //ORIGINAL LINE: Case TileView.Ship
-				if (grid.Item(row, col) == TileView.Ship)
-				{
-					draw = false;
+				//if (grid[row, col] == TileView.Ship)
+				//{
+				//	draw = false;
 					//If small Then fillColor = _SMALL_SHIP Else fillColor = _LARGE_SHIP
-				}
+				//}
 //ORIGINAL LINE: Case TileView.Miss
-				else if (grid.Item(row, col) == TileView.Miss)
+			//	else 
+                if (grid[row,col] == TileView.Miss)
 				{
 					if (small)
 					{
@@ -149,7 +152,7 @@ internal static class UtilityFunctions
 					}
 				}
 //ORIGINAL LINE: Case TileView.Hit
-				else if (grid.Item(row, col) == TileView.Hit)
+				else if (grid[row, col] == TileView.Hit)
 				{
 					if (small)
 					{
@@ -161,7 +164,7 @@ internal static class UtilityFunctions
 					}
 				}
 //ORIGINAL LINE: Case TileView.Sea, TileView.Ship
-				else if ((grid.Item(row, col) == TileView.Sea) || (grid.Item(row, col) == TileView.Ship))
+				else if ((grid[row, col] == TileView.Sea) || (grid[row, col] == TileView.Ship))
 				{
 					if (small)
 					{
@@ -262,7 +265,7 @@ internal static class UtilityFunctions
 	public static void DrawBackground()
 	{
 
-		switch (GameController.GameController.CurrentState())
+		switch (GameController.CurrentState)
 		{
 			case GameState.ViewingMainMenu:
 			case GameState.ViewingGameMenu:
@@ -320,7 +323,7 @@ internal static class UtilityFunctions
 		foreach (Sprite s in _Animations)
 		{
 			SwinGame.UpdateSprite(s);
-			if (s.animationHasEnded)
+			if (s.AnimationHasEnded)
 			{
 				ended.Add(s);
 			}
