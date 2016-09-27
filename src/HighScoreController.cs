@@ -152,6 +152,7 @@ for (i = 0; i < _Scores.Count; i++)
 	{
 		if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.vk_ESCAPE) || SwinGame.KeyTyped(KeyCode.vk_RETURN))
 		{
+			
 			GameController.EndCurrentState();
 		}
 	}
@@ -204,6 +205,7 @@ for (i = 0; i < _Scores.Count; i++)
 
 			_Scores.RemoveAt(_Scores.Count - 1);
 			_Scores.Add(s);
+			SaveScores();
 			_Scores.Sort();
 
 			GameController.EndCurrentState();
