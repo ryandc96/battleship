@@ -15,10 +15,21 @@ internal static class HighScoreController
 	private const int SCORES_LEFT = 490;
 
 	/// <summary>
+	/// Gets the scores.
+	/// </summary>
+	/// <value>Test to get the scores.</value>
+	public static List<Score>  GetScores
+	{
+		get
+		{
+			return _Scores;
+		}
+	}
+	/// <summary>
 	/// The score structure is used to keep the name and
 	/// score of the top players together.
 	/// </summary>
-	private struct Score : IComparable
+	public struct Score : IComparable
 	{
 		public string Name;
 		public int Value;
@@ -55,7 +66,7 @@ internal static class HighScoreController
 	/// 
 	/// Where NNN is the name and SSS is the score
 	/// </remarks>
-	private static void LoadScores()
+	public static void LoadScores()
 	{
 		string filename = SwinGame.PathToResource("highscores.txt");
 
@@ -93,7 +104,7 @@ internal static class HighScoreController
 	/// 
 	/// Where NNN is the name and SSS is the score
 	/// </remarks>
-	private static void SaveScores()
+	public static void SaveScores()
 	{
 		string filename = SwinGame.PathToResource("highscores.txt");
 
@@ -152,7 +163,6 @@ for (i = 0; i < _Scores.Count; i++)
 	{
 		if (SwinGame.MouseClicked(MouseButton.LeftButton) || SwinGame.KeyTyped(KeyCode.vk_ESCAPE) || SwinGame.KeyTyped(KeyCode.vk_RETURN))
 		{
-			
 			GameController.EndCurrentState();
 		}
 	}
@@ -205,8 +215,8 @@ for (i = 0; i < _Scores.Count; i++)
 
 			_Scores.RemoveAt(_Scores.Count - 1);
 			_Scores.Add(s);
-			SaveScores();
 			_Scores.Sort();
+			SaveScores ();
 
 			GameController.EndCurrentState();
 		}
