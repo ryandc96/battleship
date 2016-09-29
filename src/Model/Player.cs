@@ -156,7 +156,7 @@ public class Player : IEnumerable
 	/// The number of shots the player has made
 	/// </summary>
 	/// <value>shots taken</value>
-	/// <returns>teh number of shots taken</returns>
+	/// <returns>the number of shots taken</returns>
 	public int Shots
 	{
 		get
@@ -263,6 +263,9 @@ public class Player : IEnumerable
 				break;
 			case ResultOfAttack.Miss:
 				_misses += 1;
+				break;
+			case ResultOfAttack.ShotAlready:
+				_shots -= 1;
 				break;
 		}
 
