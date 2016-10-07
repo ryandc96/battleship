@@ -66,9 +66,11 @@ internal static class HighScoreController
 	/// 
 	/// Where NNN is the name and SSS is the score
 	/// </remarks>
-	public static void LoadScores()
+
+	public static void LoadScores(string name)
+
 	{
-		string filename = SwinGame.PathToResource("highscores.txt");
+		string filename = SwinGame.PathToResource(name);
 
 		StreamReader input = new StreamReader(filename);
 
@@ -94,6 +96,12 @@ internal static class HighScoreController
 		input.Close();
 	}
 
+	public static void LoadScores()
+	{
+		LoadScores ("highscores.txt");
+	}
+
+
 	/// <summary>
 	/// Saves the scores back to the highscores text file.
 	/// </summary>
@@ -104,9 +112,12 @@ internal static class HighScoreController
 	/// 
 	/// Where NNN is the name and SSS is the score
 	/// </remarks>
-	public static void SaveScores()
+	public static void SaveScores(){
+		SaveScores ("highscores.txt");
+	}
+	public static void SaveScores(string name)
 	{
-		string filename = SwinGame.PathToResource("highscores.txt");
+		string filename = SwinGame.PathToResource(name);
 
 		StreamWriter output = new StreamWriter(filename);
 
